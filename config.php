@@ -33,6 +33,9 @@
 				$result = mysqli_query($this->koneksi, $sql);
 				while ($row = $result->fetch_assoc()){
 					switch ($typetag) {
+						case "id":
+							return $row ["id_user"];
+							break;
 						case "nama":
 							return $row ["nama"];
 							break;
@@ -195,6 +198,15 @@
 			}
 			elseif ($type == "all") {
 				$sql = "SELECT * FROM course";
+				$result = mysqli_query($this->koneksi, $sql);
+				while ($row = mysqli_fetch_array($result)){
+					$hasil[] = $row;
+				}
+				return $hasil;
+			}
+			else
+			{
+				$sql = "SELECT * FROM `course_pilih` INNER JOIN course WHERE course_pilih.id_course='$type' GROUP BY id_pilih;";
 				$result = mysqli_query($this->koneksi, $sql);
 				while ($row = mysqli_fetch_array($result)){
 					$hasil[] = $row;

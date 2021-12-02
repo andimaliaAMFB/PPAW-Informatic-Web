@@ -69,6 +69,7 @@
 	        	  	<button class="btn btn-navbar" style="color: #FFFFFF" onclick="Notification()">
 	        	  		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
 	        	  		  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+	        	  		  <span class="badge badge-pill badge-warning">15</span>
 	        	  		</svg>
 	        	  	</button>
 	        	  	<div class="nav-item dropdown dropdown-menu show float-sm-end shadow" id="Notif" aria-labelledby="dropdown07XL" data-bs-popper="none" style="display: none;position: absolute; right: 0; left: auto;text-align: center;">

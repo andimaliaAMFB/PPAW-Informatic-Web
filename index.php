@@ -12,7 +12,6 @@
 	{
 		$nim = $_SESSION['nim'];
 		$nama = $db->getUser($nim,"nama");
-		$size = $db->getCourse($nim,"popular");
 	}
 
 ?>
@@ -29,6 +28,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="https://getbootstrap.com/docs/5.1/examples/carousel/carousel.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body style="display: grid; padding: 0; align-items: unset;">
 
@@ -65,6 +65,7 @@
 	        	  	<button class="btn btn-navbar" style="color: #FFFFFF" onclick="Notification()">
 	        	  		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
 	        	  		  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+	        	  		  <span class="badge badge-pill badge-warning">15</span>
 	        	  		</svg>
 	        	  	</button>
 	        	  	<div class="nav-item dropdown dropdown-menu show float-sm-end shadow" id="Notif" aria-labelledby="dropdown07XL" data-bs-popper="none" style="display: none;position: absolute; right: 0; left: auto;text-align: center;">
@@ -101,7 +102,7 @@
 	</header>
 	
 	<!-- Side Bar Manu -->
-	<div class="bg-dark shadow-sm mySideBar" id="mySideBar" style="overflow-x: hidden;display: none;">
+	<div class="bg-dark shadow-sm mySideBar" id="mySideBar" style="overflow-x: hidden;display: none; z-index: 100;">
 		<div class="closebtn modal-header mb-0 mx-auto border-bottom-0" >
 			<a href="javascript:void(0)" onclick="SideNavClose()">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -179,18 +180,22 @@
 	</div>
 
 	<!-- Carousel -->
-	<div id="myCarousel" class="carousel slide m-0 mb-3" data-bs-ride="carousel">
-	    <div class="carousel-indicators">
+	<div id="myCarousel" class="carousel slide m-0 mb-5" data-bs-ride="carousel" style="z-index: 10;">
+	    <div class="carousel-indicators"  style="z-index: 3;">
 	      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="" aria-label="Slide 1"></button>
 	      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="active" aria-current="true"></button>
 	      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
 	    </div>
 	    <div class="carousel-inner">
 	      <div class="carousel-item active carousel-item-start">
-	        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+	        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+	        	<img src="Asset/Carousel1.jpg" width="100%" height="100%" >
+	        	<div class="modal-backdrop show position-absolute h-100 w-100" style="z-index: 2"></div>
+	        </svg>
 
 	        <div class="container">
 	          <div class="carousel-caption text-start">
+
 	            <h1>Example headline.</h1>
 	            <p>Some representative placeholder content for the first slide of the carousel.</p>
 	            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
@@ -199,7 +204,10 @@
 	      </div>
 
 	      <div class="carousel-item carousel-item-next carousel-item-start">
-	        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+	        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+	        	<img src="Asset/Carousel2.jpg" width="100%" height="100%" >
+	        	<div class="modal-backdrop show position-absolute h-100 w-100" style="z-index: 2"></div>
+	        </svg>
 
 	        <div class="container">
 	          <div class="carousel-caption">
@@ -210,7 +218,10 @@
 	        </div>
 	      </div>
 	      <div class="carousel-item">
-	        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect></svg>
+	        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+	        	<img src="Asset/Carousel3.jpg" width="100%" height="100%" >
+	        	<div class="modal-backdrop show position-absolute h-100 w-100" style="z-index: 2"></div>
+	        </svg>
 
 	        <div class="container">
 	          <div class="carousel-caption text-end">
@@ -221,11 +232,11 @@
 	        </div>
 	      </div>
 	    </div>
-	    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+	    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev"  style="z-index: 3;">
 	      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 	      <span class="visually-hidden">Previous</span>
 	    </button>
-	    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+	    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next"  style="z-index: 3;">
 	      <span class="carousel-control-next-icon" aria-hidden="true"></span>
 	      <span class="visually-hidden">Next</span>
 	    </button>
@@ -238,25 +249,21 @@
 			    <!-- Three columns of text below the carousel -->
 			    <div class="row">
 			      <div class="col-lg-4">
-			        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-
+			        <i class="fa fa-trophy" width="140px" aria-hidden="true" style="font-size: 100px;"></i>
 			        <h2>Heading</h2>
 			        <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-			        <p><a class="btn btn-secondary" href="#">View details »</a></p>
 			      </div><!-- /.col-lg-4 -->
+			      
 			      <div class="col-lg-4">
-			        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-
+			        <i class="fa fa-star" width="140px" aria-hidden="true" style="font-size: 100px;"></i>
 			        <h2>Heading</h2>
 			        <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-			        <p><a class="btn btn-secondary" href="#">View details »</a></p>
 			      </div><!-- /.col-lg-4 -->
+			      
 			      <div class="col-lg-4">
-			        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-
+			        <i class="fa fa-thumbs-up" width="140px" aria-hidden="true" style="font-size: 100px;"></i>
 			        <h2>Heading</h2>
 			        <p>And lastly this, the third column of representative placeholder content.</p>
-			        <p><a class="btn btn-secondary" href="#">View details »</a></p>
 			      </div><!-- /.col-lg-4 -->
 			    </div><!-- /.row -->
 
