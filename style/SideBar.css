@@ -1,0 +1,31 @@
+.mySideBar{
+  height: 100%;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  transition: 0.5s;
+  display: none;
+  color: #f8f9fa;
+}
+
+.mySideBar a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #f8f9fa;
+  display: block;
+  transition: 0.3s;
+}
+
+.mySideBar a:hover {
+  color: #343a40;
+}
+
+.closebtn {
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  text-align: left;
+}
