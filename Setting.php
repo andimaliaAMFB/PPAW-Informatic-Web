@@ -8,31 +8,48 @@
 	    header("Location: login.php");
 	}
 
-	$nim = $_SESSION['nim'];
-	$nama = $db->getUser($nim,"nama");
+	$nimsession = $_SESSION['nim'];
+	$namasession = $db->getUser($nimsession,"nama");
+	$emailsession = $db->getUser($nimsession,"email");
+
+	$nama = $db->getMahasiswa($nimsession,"nama");
+	$notlp = $db->getMahasiswa($nimsession,"notlp");
+	$email = $db->getMahasiswa($nimsession,"email");
+	$alamat = $db->getMahasiswa($nimsession,"alamat");
+	$kota = $db->getMahasiswa($nimsession,"kota");
+	$provinsi = $db->getMahasiswa($nimsession,"provinsi");
+	$kodepos = $db->getMahasiswa($nimsession,"kodepos");
+	$jurusan = $db->getMahasiswa($nimsession,"jurusan");
+	$universitas = $db->getMahasiswa($nimsession,"universitas");
+
+	if (isset($_POST['submit'])) {
+		$nama = $_POST['nama'];
+		$nim = $nimsession;
+		$notlp = $_POST['notlp'];
+		$email = $_POST['email'];
+		$alamat = $_POST['alamat'];
+		$kota = $_POST['kota'];
+		$provinsi = $_POST['provinsi'];
+		$kodepos = $_POST['kodepos'];
+		$jurusan = $_POST['jurusan'];
+		$universitas = $_POST['universitas'];
+
+		$db->profile($nimsession,$nama,$nim,$notlp,$email,$alamat,$kota,$provinsi,$kodepos,$jurusan,$universitas);
+	}
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Informatic Web_PPAW-B</title>
-	<!-- JavaScript -->
-	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-	<!-- Bootstrap -->
+	<!-- JavaScript Bundle with Popper -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="style/SideBar.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://getbootstrap.com/docs/4.4/examples/sign-in/signin.css">
 	<link rel="stylesheet" href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="style/all.min.css">
-	<link rel="stylesheet" href="style/mini_adminlte.min.css">
-
-	<!-- Font Awsome -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body style="display: grid; padding: 0; align-items: unset;">
 
@@ -129,8 +146,8 @@
 						<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
 					</svg>
 				</div>
-				<p class="lead mb-0"><?php echo $nama;?></p>
-				<p class="small mb-0"><?php echo $nim;?></p>
+				<p class="lead mb-0"><?php if($nama==null){echo $namasession;}else{ echo $nama;} ?></p>
+				<p class="small mb-0"><?php echo $nimsession;?></p>
 			</div>
 			<a class="dropdown-item" href="index.php">
 				<div class="align-items-center justify-content-center">
@@ -164,108 +181,192 @@
 
 	<!-- Content -->
 	<menu class="content-wrapper">
-		<div class="container marketing">
-
+		<div class="container marketing" style="min-height: 900px;">
 			<!-- Biodata -->
-			<div class="row featurette">
-				<div class="col-md-7 order-md-2">
-					<h2 class="featurette-heading"><?php echo $nama;?></h2>
-					<p class="lead"><?php echo $nim;?></p>
-				</div>
-			</div>
+			<div id="Biodata">
+				<div class="row g-0 border rounded overflow-hidden flex-md-row my-6 shadow-sm h-md-250 position-relative" id="Biodata">
+			        <div class="col-auto d-none d-lg-block justify-content-center text-center">
+			            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill w-50 mx-auto" viewBox="0 0 16 16">
+	  						<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+	  					</svg>
+			        </div>
+			        <div class="col p-4 d-flex flex-column position-static">
+				        <h3 class="mb-0"><?php if($nama==null){echo $namasession;}else{ echo $nama;} ?></h3>
+				        <div class="mb-1 text-muted"><?php echo $nimsession;?></div>
 
-			<hr class="featurette-divider">
+				        <div class="float-sm-end ms-auto">
+				        	<a href="#" class="btn btn-outline-secondary" onclick="EditOpen()">Edit Profile</a>
+				        </div>
+			        </div>
+			    </div>
 
-			<!-- Content -->
-
-			<div class="row featurette mt-0 align-items-center justify-content-center text-center">
-				<div class="col-md-7 order-md-2">
-					<h2 class="featurette-heading mt-0">My Course</h2>
-				</div>
-			</div>
-
-			<div class="album py-5 bg-light">
-			    <div class="container">
-
-			      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-			        <?php
-			      		foreach ($db->getMyCourse($nim) as $myCourse)
-			      		{
-			      			?>
-			      			<div class="col-lg-4 col-6 p-3">
-					        <!-- small card -->
-					        	<?php
-					        	switch ((int)$myCourse['id_course']) {
-					        		case 1:
-					        		case 7:
-					        		case 13:
-					        			?><div class="small-box bg-info text-white"><?php
-					        			break;
-					        		case 2:
-					        		case 8:
-					        		case 14:
-					        			?><div class="small-box bg-warning text-white"><?php
-					        			break;
-					        		case 3:
-					        		case 9:
-					        		case 15:
-					        			?><div class="small-box bg-success text-white"><?php
-					        			break;
-					        		case 4:
-					        		case 10:
-					        			?><div class="small-box bg-danger text-white"><?php
-					        			break;
-					        		case 5:
-					        		case 11:
-					        			?><div class="small-box bg-dark text-white"><?php
-					        			break;
-					        		case 6:
-					        		case 12:
-					        			?><div class="small-box bg-light"><?php
-					        			break;
-					        		default:
-					        			?><div class="small-box bg-info text-white"><?php
-					        			break;
-					        	}
-					        	?>
-					        	
-					        		<div class="inner p-2 px-4">
-					        			<h5><?php echo $myCourse['nama_course'] ?></h5>
-					        			<hr>
-					        			<p>Start: <?php echo $myCourse['tanggal_ambil'] ?></p>
-					        			<p>End  : <?php echo $myCourse['tanggal_selesai'] ?></p>
-						        		<div class="d-flex justify-content-between align-items-center mb-3">
-						              	<?php
-							        	if ( (date_parse($myCourse['tanggal_selesai'])) < (date_parse(date("Y-m-d"))) ) {
-					        				?><a href="#" class="btn btn-danger btn-sm btn-block btn-lg disabled" role="button" aria-disabled="true">Finished</a><?php
-					        			}
-					        			else
-					        			{
-					        				switch ((int)$myCourse['id_course']) {
-								        		case 6:
-								        		case 12:
-								        			?><a href="#" class="btn btn-outline-dark btn-sm btn-block">View</a><?php
-								        			break;
-								        		default:
-								        			?><a href="#" class="btn btn-outline-light btn-sm btn-block">View</a><?php
-								        			break;
-							        	}
-					        			}
-							        	?>
-						              </div>
-					        		</div>
-					        		<div class="icon">
-	        		                	<i class="fas fa-chart-pie"></i>
-	        		                </div>
-					        		
-					        	</div>
-					        </div>
-			      		<?php
-			      		}	
-			      	?>
-
+				<div class="row g-0 border rounded overflow-hidden flex-md-row my-6 shadow-sm h-md-250 position-relative" id="Biodata">
+			        <div class="col p-4 d-flex flex-column position-static">
+				        <table>
+				        	<tr>
+				        		<td>Nama</td>
+				        		<td>:</td>
+				        		<td><?php if($nama==null){echo $namasession;}else{ echo $nama;} ?></td>
+				        	</tr>
+				        	<tr>
+				        		<td>Nim</td>
+				        		<td>:</td>
+				        		<td><?php echo $nimsession;?></td>
+				        	</tr>
+				        	<tr>
+				        		<td>Nomor Telepon</td>
+				        		<td>:</td>
+				        		<td><?php if($notlp==null){echo "Belum Diisi";}else{ echo $notlp;} ?></td>
+				        	</tr>
+				        	<tr>
+				        		<td>Email</td>
+				        		<td>:</td>
+				        		<td><?php if($email==null){echo $emailsession;}else{ echo $email;} ?></td>
+				        	</tr>
+				        	<tr>
+				        		<td>Alamat</td>
+				        		<td>:</td>
+				        		<td><?php if($alamat==null){echo "Belum Diisi";}else{ echo $alamat;} ?></td>
+				        	</tr>
+				        	<tr>
+				        		<td>Kota</td>
+				        		<td>:</td>
+				        		<td><?php if($kota==null){echo "Belum Diisi";}else{ echo $kota;} ?></td>
+				        	</tr>
+				        	<tr>
+				        		<td>Provinsi</td>
+				        		<td>:</td>
+				        		<td><?php if($provinsi==null){echo "Belum Diisi";}else{ echo $provinsi;} ?></td>
+				        	</tr>
+				        	<tr>
+				        		<td>Kode Pos</td>
+				        		<td>:</td>
+				        		<td><?php if($kodepos==null){echo "Belum Diisi";}else{ echo $kodepos;} ?></td>
+				        	</tr>
+				        	<tr>
+				        		<td>Jurusan</td>
+				        		<td>:</td>
+				        		<td><?php if($jurusan==null){echo "Belum Diisi";}else{ echo $jurusan;} ?></td>
+				        	</tr>
+				        	<tr>
+				        		<td>Universitas</td>
+				        		<td>:</td>
+				        		<td><?php if($universitas==null){echo "Belum Diisi";}else{ echo $universitas;} ?></td>
+				        	</tr>
+				        </table>
+			        </div>
 			    </div>
 			</div>
+			
+
+		    <!-- Form Bio -->
+			    <div class="col-auto d-none d-lg-block">
+			    	<form action="" method="POST" id="EditForm" style="display: none;">
+			    		<h1 class="mb-3 mx-auto text-center">Edit Profile</h1>
+			    		<div class="row gy-3 gx-0 p-3">
+			    			<!-- Bio -->
+				    			<div class="col-12">
+				    				<label for="nama" class="form-label">Nama</label>
+				    			  	<input type="text" class="form-control" name="nama" placeholder="Nama Lengkap" value="<?php if($nama==null){echo $namasession;}else{ echo $nama;} ?>" required="">
+				    			  	<div class="invalid-feedback">
+				    			    	Nama Harus dimasukan
+				    			  	</div>
+				    			</div>
+
+	    						<div class="col-12">
+				    				<label for="nim" class="form-label">NIM</label>
+	    						  	<input type="text" class="form-control" name="nim" placeholder="NIM" value="<?php echo $nimsession; ?>" disabled>
+	    						</div>
+
+	    						<div class="col-12">
+				    				<label for="notlp" class="form-label">No Telepon</label>
+	    						  	<input type="text" class="form-control" name="notlp" placeholder="Nomor Telepon" value="<?php echo $notlp; ?>" required="">
+	    						</div>
+
+	    						<div class="col-12">
+	    							<label for="email" class="form-label">Email</label>
+	    						  	<input type="email" class="form-control" name="email" placeholder="Email" value="<?php if($nama==null){echo $emailsession;}else{ echo $email;} ?>" required="">
+	    						  	<div class="invalid-feedback">
+	    						  		Masukan Email yang Valid
+	    						  	</div>
+	    						</div>
+
+	    						<div class="col-12">
+	    							<label for="alamat" class="form-label">Alamat</label>
+	    							<textarea class="form-control" name="alamat" placeholder="Alamat" value="<?php echo $alamat; ?>" required=""></textarea>
+	    						</div>
+
+	    						<div class="col-md-4">
+	    							<label for="kota" class="form-label">Kota</label>
+	    							<select class="form-select" name="kota" id="kota" placeholder=">--Kota--<" value="<?php echo $kota; ?>" required="">
+	    								<?php
+	    									foreach ($db->getKota("nama_kota") as $kota)
+	    									{
+	    										?>
+	    										<option value="Kota <?php echo $kota['nama_kota']; ?>">Kota <?php echo $kota['nama_kota']; ?></option>
+	    									<?php
+	    									}	
+	    								?>
+	    							</select>
+	    						</div>
+
+	    						<div class="col-md-5">
+	    							<label for="provinsi" class="form-label">Provinsi</label>
+	    							<select class="form-select" name="provinsi" id="provinsi" placeholder=">--Provinsi--<" value="<?php echo $provinsi; ?>" required="">
+	    								<?php
+	    									foreach ($db->getProvinsi("nama_provinsi") as $provinsi)
+	    									{
+	    										?>
+	    										<option value="Provinsi <?php echo $provinsi['nama_provinsi'] ?>">Provinsi <?php echo $provinsi['nama_provinsi'] ?></option>
+	    									<?php
+	    									}	
+	    								?>
+	    							</select>
+	    						</div>
+
+	    						<div class="col-md-3">
+	    							<label for="kodepos" class="form-label">Kode Pos</label>
+	    							<input type="text" class="form-control" name="kodepos" placeholder="Kode Pos" value="<?php echo $kodepos; ?>" required="">
+	    						</div>
+	    					<!-- /Bio -->
+			    			
+			    			<!-- Bio Universitas -->
+
+					    		<div class="col-md-5">
+					    		  	<label for="jurusan" class="form-label">Jurusan</label>
+					    		    <select class="form-select" name="jurusan" id="jurusan" placeholder=">--Jurusan--<" value="<?php echo $jurusan; ?>" required="">
+					    		    	<?php
+	    									foreach ($db->getJurusan("nama_jurusan") as $jurusan)
+	    									{
+	    										?>
+	    										<option value="<?php echo $jurusan['nama_jurusan']; ?>"><?php echo $jurusan['nama_jurusan']; ?></option>
+	    									<?php
+	    									}	
+	    								?>
+					    		    </select>
+					    		</div>
+
+				    			<div class="col-md-6">
+					    		  	<label for="universitas" class="form-label">Universitas</label>
+					    		    <select class="form-select" name="universitas" id="universitas" placeholder=">--Universitas--<" value="<?php echo $universitas; ?>" required="">
+					    		    	<?php
+	    									foreach ($db->getUniversitas("nama_universitas") as $universitas)
+	    									{
+	    										?>
+	    										<option value="<?php echo $universitas['nama_kampus']; ?>"><?php echo $universitas['nama_kampus']; ?></option>
+	    									<?php
+	    									}	
+	    								?>
+					    		    </select>
+					    		</div>
+
+				    		<!-- /Bio Universitas -->
+
+				    		<button class="w-100 btn btn-primary btn-lg" name="submit" onclick="ProfileOpen()">Update Data</button>
+				    	</div>
+			    	</form>
+			    </div>
+		    <!-- /Form Bio -->
 		</div>
 	</menu>
 	
@@ -288,7 +389,6 @@
 </html>
 
 <script>
-
 	function Notification() {
 	  var x = document.getElementById("Notif");
 	  if (x.style.display === "none") {
@@ -304,5 +404,14 @@
 	function SideNavClose(){
 		var x = document.getElementById("mySideBar");
 		x.style.display = "none";
+	}
+
+	function EditOpen(){
+		document.getElementById("EditForm").style.display = "block";
+		document.getElementById("Biodata").style.display = "none";
+	}
+	function ProfileOpen(){
+		document.getElementById("EditForm").style.display = "none";
+		document.getElementById("Biodata").style.display = "flex";
 	}
 </script>

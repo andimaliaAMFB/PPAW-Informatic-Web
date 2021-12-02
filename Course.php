@@ -164,38 +164,23 @@
 
 	<!-- Content -->
 	<menu class="content-wrapper">
-		<div class="container marketing">
+	    <!-- Content Header (Page header) -->
+	    <section class="content-header">
+	      <h1 class="mb-3 mx-auto text-center">Course</h1>
+	    </section>
 
-			<!-- Biodata -->
-			<div class="row featurette">
-				<div class="col-md-7 order-md-2">
-					<h2 class="featurette-heading"><?php echo $nama;?></h2>
-					<p class="lead"><?php echo $nim;?></p>
-				</div>
-			</div>
-
-			<hr class="featurette-divider">
-
-			<!-- Content -->
-
-			<div class="row featurette mt-0 align-items-center justify-content-center text-center">
-				<div class="col-md-7 order-md-2">
-					<h2 class="featurette-heading mt-0">My Course</h2>
-				</div>
-			</div>
-
-			<div class="album py-5 bg-light">
-			    <div class="container">
-
-			      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-			        <?php
-			      		foreach ($db->getMyCourse($nim) as $myCourse)
+	    <!-- Main content -->
+	    <section class="content">
+	      <div class="container-fluid">
+	        	<div class="row">
+	        		<?php
+			      		foreach ($db->getCourse("all") as $course)
 			      		{
 			      			?>
-			      			<div class="col-lg-4 col-6 p-3">
+					        <div class="col-lg-3 col-6 p-3">
 					        <!-- small card -->
 					        	<?php
-					        	switch ((int)$myCourse['id_course']) {
+					        	switch ((int)$course['id_course']) {
 					        		case 1:
 					        		case 7:
 					        		case 13:
@@ -229,45 +214,30 @@
 					        	}
 					        	?>
 					        	
-					        		<div class="inner p-2 px-4">
-					        			<h5><?php echo $myCourse['nama_course'] ?></h5>
+					        		<div class="inner">
+					        			<h5><?php echo $course['nama_course'] ?></h5>
 					        			<hr>
-					        			<p>Start: <?php echo $myCourse['tanggal_ambil'] ?></p>
-					        			<p>End  : <?php echo $myCourse['tanggal_selesai'] ?></p>
-						        		<div class="d-flex justify-content-between align-items-center mb-3">
-						              	<?php
-							        	if ( (date_parse($myCourse['tanggal_selesai'])) < (date_parse(date("Y-m-d"))) ) {
-					        				?><a href="#" class="btn btn-danger btn-sm btn-block btn-lg disabled" role="button" aria-disabled="true">Finished</a><?php
-					        			}
-					        			else
-					        			{
-					        				switch ((int)$myCourse['id_course']) {
-								        		case 6:
-								        		case 12:
-								        			?><a href="#" class="btn btn-outline-dark btn-sm btn-block">View</a><?php
-								        			break;
-								        		default:
-								        			?><a href="#" class="btn btn-outline-light btn-sm btn-block">View</a><?php
-								        			break;
-							        	}
-					        			}
-							        	?>
-						              </div>
+					        			<p><?php echo $course['deskripsi'] ?></p>
 					        		</div>
 					        		<div class="icon">
 	        		                	<i class="fas fa-chart-pie"></i>
 	        		                </div>
-					        		
+					        		<a href="#" class="small-box-footer">
+					        		    View <i class="fas fa-arrow-circle-right"></i>
+					        		</a>
 					        	</div>
 					        </div>
 			      		<?php
 			      		}	
 			      	?>
-
-			    </div>
-			</div>
-		</div>
-	</menu>
+					
+					<!-- ./col -->
+					</div>
+	        </div>
+	      </div><!-- /.container-fluid -->
+	    </section>
+	    <!-- /.content -->
+	  </menu>
 	
 
 	<footer class="text-muted pt-5 pb-2">
