@@ -4,13 +4,33 @@
 
 	session_start();
 
-	if (!isset($_SESSION['nim']) && $_SESSION['login'] != true ) {
-	    header("Location: login.php");
+	if (!isset($_SESSION['nim'])) {
+	    $nim = "";
+	    $nama = "";
+		$id_user = "";
+	}
+	else
+	{
+		$nim = $_SESSION['nim'];
+		$nama = $db->getUser($nim,"nama");
+		$id_user = $db->getUser($nim, "id");
+		//echo "<script>alert('id_user = ".$id_user." nim ".$nim."')</script>";
 	}
 
-	$nim = $_SESSION['nim'];
-	$nama = $db->getUser($nim,"nama");
-	$id_user = $db->getUser($nim, "id");
+	if (isset($_POST['daftar'])) {
+		if ($id_user != "") {
+			foreach ($db->getCourse("1") as $course)
+			{
+				$id_course = $course['id_course'];
+			}
+			//echo "<script>alert('USER dengan ID ".$id_user." Mendaftar ke Course ".$id_course."')</script>";
+			$db->addCourse($id_user,$id_course);
+		}
+		else
+		{
+			header("Location: ../login.php");
+		}
+	}
 
 ?>
 <!DOCTYPE html>
@@ -44,7 +64,7 @@
 			<a href="#" onclick="SideNavOpen()">
 				<span class="navbar-toggler-icon mx-1 me-4 p-0" style="width: 24px;height: 24px;"></span>
 			</a>
-	        <a href="../index.php" class="navbar-brand">
+	        <a href="#" class="navbar-brand">
 	        	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="mr-2 bi bi-laptop" viewBox="0 0 16 16">
 	        	  <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5h11zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5z"/>
 	        	</svg>
@@ -107,7 +127,7 @@
 	</header>
 	
 	<!-- Side Bar Manu -->
-	<div class="bg-dark shadow-sm mySideBar" id="mySideBar" style="overflow-x: hidden;display: none;">
+	<div class="bg-dark shadow-sm mySideBar" id="mySideBar" style="overflow-x: hidden;display: none; z-index: 100;">
 		<div class="closebtn modal-header mb-0 mx-auto border-bottom-0" >
 			<a href="javascript:void(0)" onclick="SideNavClose()">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -117,7 +137,7 @@
 			</a>
 
 
-			<a href="../index.php" class="navbar-brand">
+			<a href="#" class="navbar-brand">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="mr-2 bi bi-laptop" viewBox="0 0 16 16">
 				  <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5h11zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5z"/>
 				</svg>
@@ -125,15 +145,28 @@
 			</a>
 		</div>
 		<div class="menuContent text-sm-center">
-			<div class="Account align-items-center justify-content-center text-center p-1" style="background-color: #495057;">
-				<div class="mx-auto m-3 w-25">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-						<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-					</svg>
+			<?php
+			if(($nama!= "")&&($nim!=""))
+			{
+			?>
+				<div class="Account align-items-center justify-content-center text-center p-1" style="background-color: #495057;">
+					<div class="mx-auto m-3 w-25">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+							<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+						</svg>
+					</div>
+					<p class="lead mb-0"><?php echo $nama;?></p>
+					<p class="small mb-0"><?php echo $nim;?></p>
 				</div>
-				<p class="lead mb-0"><?php echo $nama;?></p>
-				<p class="small mb-0"><?php echo $nim;?></p>
-			</div>
+			<?php
+			}
+			else
+			{
+				?>
+				<a href="login.php" class="mx-auto btn btn-primary" style="border-radius: 0">Login</a>
+				<?php
+			}
+			?>
 			<a class="dropdown-item" href="../index.php">
 				<div class="align-items-center justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" height="24" fill="currentColor" class="bi bi-house-fill mr-2" viewBox="0 0 16 16">
@@ -160,7 +193,14 @@
 				  <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
 				</svg> Setting
 			</a>
-			<a class="dropdown-item bg-danger" href="logout.php">Log Out</a>
+			<?php
+			if(($nama!= "")&&($nim!=""))
+			{
+			?>
+				<a class="dropdown-item bg-danger" href="logout.php">Log Out</a>
+			<?php
+			}
+			?>
 		</div>
 	</div>
 
@@ -169,6 +209,8 @@
 		<?php
       		foreach ($db->getCourse("1") as $course)
       		{
+      			if ($course['id_user'] == $id_user) {
+
       	?>
 	    <!-- Content Header (Page header) -->
 	    <section class="content-header">
@@ -178,26 +220,30 @@
 		          	<p class="lead"><?php echo $course['deskripsi'];?></p>
 		            <hr class="my-4">
 		            <p class="lead">
-		            	<?php 
-        				if ($course['id_user'] == $id_user) {
-		            		?><a class="btn btn-warning btn-lg disabled" role="button" aria-disabled="true">Sudah Mendaftar</a><?php
-
-		            		if ( (date_parse($course['tanggal_selesai'])) < (date_parse(date("Y-m-d"))) ) {
-		        				?><a class="btn btn-success btn-lg disabled" role="button" aria-disabled="true">Finished</a><?php
-		        			}
-		            	}
-		            	else
-		            	{
-		            		?><a class="btn btn-primary btn-lg" href="#" role="button">Daftar</a><?php
-		            	}
-		            	?>
-		              	
+		            	<form action="" method="POST">
+			            	<?php 
+	        				if ($id_user == $course['id_user']) {
+			            		if ( (date_parse($course['tanggal_selesai'])) <= (date_parse(date("Y-m-d"))) ) {
+			        				?><button class="btn btn-success btn-lg disabled" role="button" aria-disabled="true">Finished</button><?php
+			        			}
+			        			else
+			        			{
+			        				?><button class="btn btn-warning btn-lg disabled" role="button" aria-disabled="true">Sudah Mendaftar</button><?php
+			        			}
+			            	}
+			            	elseif($id_user = "")
+			            	{
+			            		?><button class="btn btn-primary btn-lg" href="#" role="button" type="submit" name="daftar">Daftar</button><?php
+			            	}
+			            	?>
+		            	</form>
 		            </p>
 		        </div>
 	      	</div>
 	    </section>
 	    <?php
-		}?>
+				}
+			}?>
 	    <!-- Main content -->
 	    <section class="content" style="min-height: 900px;">
 	      <div class="container-fluid">
