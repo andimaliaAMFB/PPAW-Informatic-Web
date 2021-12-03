@@ -305,5 +305,24 @@
 				echo "<script>alert('NIM Not Matched.')</script>";
 			}
 		}
+
+		function addCourse($id_user,$id_course){
+			$sql = "INSERT INTO course_pilih (id_user, id_course, tanggal_ambil, tanggal_selesai)
+					VALUES ('$id_user',
+							'$id_course', 
+							(SELECT CURRENT_DATE), 
+							(SELECT ADDDATE(CURRENT_DATE, INTERVAL (SELECT lama_course FROM course WHERE id_course = '$id_course') DAY ) )
+					)";
+
+			$result = mysqli_query($this->koneksi, $sql);
+			echo mysqli_error($this->koneksi);
+			
+			if ($result) {
+				echo "<script>alert('Wow! Insert Course to My Course Completed.')</script>";
+			} else {
+				echo "<script>alert('Woops! Something Wrong Went.')</script>";
+				$_SESSION['id_user'] = "";
+			}
+		}
 	}
 ?>

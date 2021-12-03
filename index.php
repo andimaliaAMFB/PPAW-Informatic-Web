@@ -5,8 +5,8 @@
 	session_start();
 
 	if (!isset($_SESSION['nim'])) {
-	    $nim = "none";
-	    $nama = "none";
+	    $nim = "";
+	    $nama = "";
 	}
 	else
 	{
@@ -121,7 +121,7 @@
 		</div>
 		<div class="menuContent text-sm-center">
 			<?php
-			if(($nama!= "none")&&($nim!="none"))
+			if(($nama!= "")&&($nim!=""))
 			{
 			?>
 				<div class="Account align-items-center justify-content-center text-center p-1" style="background-color: #495057;">
@@ -169,7 +169,7 @@
 				</svg> Setting
 			</a>
 			<?php
-			if(($nama!= "none")&&($nim!="none"))
+			if(($nama!= "")&&($nim!=""))
 			{
 			?>
 				<a class="dropdown-item bg-danger" href="logout.php">Log Out</a>
@@ -180,7 +180,7 @@
 	</div>
 
 	<!-- Carousel -->
-	<div id="myCarousel" class="carousel slide m-0 mb-5" data-bs-ride="carousel" style="z-index: 10;">
+	<div id="myCarousel" class="carousel slide m-0" data-bs-ride="carousel" style="z-index: 10;">
 	    <div class="carousel-indicators"  style="z-index: 3;">
 	      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="" aria-label="Slide 1"></button>
 	      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="active" aria-current="true"></button>
@@ -243,9 +243,9 @@
 	  </div>
 
 	<!-- Content -->
-	<menu class="content-wrapper bg-light">
+	<menu class="content-wrapper bg-light pt-5">
 			<!-- Member -->
-			<div class="container marketing">
+			<div class="container marketing mt-3">
 			    <!-- Three columns of text below the carousel -->
 			    <div class="row">
 			      <div class="col-lg-4">
@@ -293,37 +293,56 @@
 					        		case 1:
 					        		case 7:
 					        		case 13:
-					        			?><div class="card shadow-sm bg-info text-white"><?php
+					        			?><div class="card shadow-sm bg-info text-white">
+					        				<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+					        					<rect width="100%" height="100%" fill="#17a2b8"></rect>
+					        				<?php
 					        			break;
 					        		case 2:
 					        		case 8:
 					        		case 14:
-					        			?><div class="card shadow-sm bg-warning text-white"><?php
+					        			?><div class="card shadow-sm bg-warning text-white">
+					        				<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+					        					<rect width="100%" height="100%" fill="#fd7e14"></rect>
+					        				<?php
 					        			break;
 					        		case 3:
 					        		case 9:
 					        		case 15:
-					        			?><div class="card shadow-sm bg-success text-white"><?php
+					        			?><div class="card shadow-sm bg-success text-white">
+					        				<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+					        					<rect width="100%" height="100%" fill="#20c997"></rect>
+					        				<?php
 					        			break;
 					        		case 4:
 					        		case 10:
-					        			?><div class="card shadow-sm bg-danger text-white"><?php
+					        			?><div class="card shadow-sm bg-danger text-white">
+					        				<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+					        					<rect width="100%" height="100%" fill="#e83e8c"></rect>
+					        				<?php
 					        			break;
 					        		case 5:
 					        		case 11:
-					        			?><div class="card shadow-sm bg-dark text-white"><?php
+					        			?><div class="card shadow-sm bg-dark text-white">
+					        				<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+					        					<rect width="100%" height="100%" fill="#55595c"></rect>
+					        				<?php
 					        			break;
 					        		case 6:
 					        		case 12:
-					        			?><div class="card shadow-sm bg-light"><?php
+					        			?><div class="card shadow-sm bg-light">
+					        				<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+					        					<rect width="100%" height="100%" fill="#f8f9fa"></rect>
+					        				<?php
 					        			break;
 					        		default:
-					        			?><div class="card shadow-sm bg-info text-white"><?php
+					        			?><div class="card shadow-sm bg-info text-white">
+					        				<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+					        					<rect width="100%" height="100%" fill="#17a2b8"></rect>
+					        				<?php
 					        			break;
 					        	}
 					        	?>
-					            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-					            	<rect width="100%" height="100%" fill="#55595c"></rect>
 					            </svg>
 
 					            <div class="card-body" style="text-align: center;">

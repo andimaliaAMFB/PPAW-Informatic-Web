@@ -4,12 +4,15 @@
 
 	session_start();
 
-	if (!isset($_SESSION['nim']) && $_SESSION['login'] != true ) {
-	    header("Location: login.php");
+	if (!isset($_SESSION['nim'])) {
+	    $nim = "";
+	    $nama = "";
 	}
-
-	$nim = $_SESSION['nim'];
-	$nama = $db->getUser($nim,"nama");
+	else
+	{
+		$nim = $_SESSION['nim'];
+		$nama = $db->getUser($nim,"nama");
+	}
 
 ?>
 <!DOCTYPE html>
@@ -106,7 +109,7 @@
 	</header>
 	
 	<!-- Side Bar Manu -->
-	<div class="bg-dark shadow-sm mySideBar" id="mySideBar" style="overflow-x: hidden;display: none;">
+	<div class="bg-dark shadow-sm mySideBar" id="mySideBar" style="overflow-x: hidden;display: none; z-index: 100;">
 		<div class="closebtn modal-header mb-0 mx-auto border-bottom-0" >
 			<a href="javascript:void(0)" onclick="SideNavClose()">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -124,15 +127,28 @@
 			</a>
 		</div>
 		<div class="menuContent text-sm-center">
-			<div class="Account align-items-center justify-content-center text-center p-1" style="background-color: #495057;">
-				<div class="mx-auto m-3 w-25">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-						<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-					</svg>
+			<?php
+			if(($nama!= "")&&($nim!=""))
+			{
+			?>
+				<div class="Account align-items-center justify-content-center text-center p-1" style="background-color: #495057;">
+					<div class="mx-auto m-3 w-25">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+							<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+						</svg>
+					</div>
+					<p class="lead mb-0"><?php echo $nama;?></p>
+					<p class="small mb-0"><?php echo $nim;?></p>
 				</div>
-				<p class="lead mb-0"><?php echo $nama;?></p>
-				<p class="small mb-0"><?php echo $nim;?></p>
-			</div>
+			<?php
+			}
+			else
+			{
+				?>
+				<a href="login.php" class="mx-auto btn btn-primary" style="border-radius: 0">Login</a>
+				<?php
+			}
+			?>
 			<a class="dropdown-item" href="index.php">
 				<div class="align-items-center justify-content-center">
 					<svg xmlns="http://www.w3.org/2000/svg" height="24" fill="currentColor" class="bi bi-house-fill mr-2" viewBox="0 0 16 16">
@@ -159,7 +175,14 @@
 				  <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
 				</svg> Setting
 			</a>
-			<a class="dropdown-item bg-danger" href="logout.php">Log Out</a>
+			<?php
+			if(($nama!= "")&&($nim!=""))
+			{
+			?>
+				<a class="dropdown-item bg-danger" href="logout.php">Log Out</a>
+			<?php
+			}
+			?>
 		</div>
 	</div>
 
@@ -225,7 +248,7 @@
 	        		                </div>
 
 	        		                <?php
-	        		                	?><a href="Course/<?php echo $course['nama_course'];?>.php" class="small-box-footer"><?php
+	        		                	?><a href="Course/<?php echo $course['nama_course'] ?>.php" class="small-box-footer"><?php
 	        		                ?>
 					        		
 					        		    View <i class="fas fa-arrow-circle-right"></i>

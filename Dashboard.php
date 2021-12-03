@@ -245,10 +245,10 @@
 					        				switch ((int)$myCourse['id_course']) {
 								        		case 6:
 								        		case 12:
-								        			?><a href="#" class="btn btn-outline-dark btn-sm btn-block">View</a><?php
+								        			?><a href="Course/<?php echo $myCourse['nama_course'] ?>.php" class="btn btn-outline-dark btn-sm btn-block">View</a><?php
 								        			break;
 								        		default:
-								        			?><a href="#" class="btn btn-outline-light btn-sm btn-block">View</a><?php
+								        			?><a href="Course/<?php echo $myCourse['nama_course'] ?>.php" class="btn btn-outline-light btn-sm btn-block">View</a><?php
 								        			break;
 							        	}
 					        			}

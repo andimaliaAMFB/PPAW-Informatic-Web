@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Des 2021 pada 06.21
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 8.0.12
+-- Waktu pembuatan: 03 Des 2021 pada 07.15
+-- Versi server: 10.4.14-MariaDB
+-- Versi PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -88,7 +88,8 @@ INSERT INTO `course_pilih` (`id_pilih`, `id_user`, `id_course`, `tanggal_ambil`,
 (12, '1', '7', '2018-05-01', '2018-05-22'),
 (13, '2', '5', '2018-05-30', '2018-06-13'),
 (14, '1', '12', '2018-06-03', '2018-06-17'),
-(15, '2', '11', '2018-06-24', '2018-07-08');
+(15, '2', '11', '2018-06-24', '2018-07-08'),
+(23, '2', '1', '2021-12-03', '2021-12-17');
 
 -- --------------------------------------------------------
 
@@ -498,7 +499,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `course_pilih`
 --
 ALTER TABLE `course_pilih`
-  MODIFY `id_pilih` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_pilih` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `jurusan`
